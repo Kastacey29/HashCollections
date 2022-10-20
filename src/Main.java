@@ -12,7 +12,7 @@ public class Main {
         addProduct(banana, products);
         addProduct(grapefruit, products);
         addProduct(mandarin, products);
-        addProduct(mandarin1, products);
+
 
         System.out.println(products);
 
@@ -20,6 +20,42 @@ public class Main {
         System.out.println(products);
         removeProduct(grapefruit, products);
         System.out.println(products);
+
+        Recipe recipe1 = new Recipe("Яичница", products, 0);
+        Product egg = new Product("яйцо", 56.30, 0.09);
+        Product solt = new Product("соль", 23.54, 0.01);
+        Product ham = new Product("ветчина", 123.45, 0.23);
+
+
+        recipe1.addProductInRecipe(egg);
+        recipe1.addProductInRecipe(solt);
+        recipe1.addProductInRecipe(ham);
+
+        System.out.println(recipe1);
+
+        Recipe recipe2 = new Recipe("Фруктовый салат", products, 0);
+        Recipe recipe3 = new Recipe("Фруктовый салат", products, 0);
+
+        Product yogurt = new Product("йогурт", 54.26, 0.17);
+
+
+        recipe2.addProductInRecipe(banana);
+        recipe2.addProductInRecipe(grapefruit);
+        recipe2.addProductInRecipe(mandarin);
+        recipe2.addProductInRecipe(yogurt);
+
+        recipe3.addProductInRecipe(banana);
+        recipe3.addProductInRecipe(grapefruit);
+        recipe3.addProductInRecipe(mandarin);
+        recipe3.addProductInRecipe(yogurt);
+
+        System.out.println(recipe2);
+
+        RecipeBook recipeBook1 = new RecipeBook();
+        recipeBook1.addRecipe(recipe1);
+        recipeBook1.addRecipe(recipe2);
+        recipeBook1.addRecipe(recipe3);
+        System.out.println(recipeBook1);
 
     }
 
