@@ -1,4 +1,6 @@
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Main {
@@ -8,10 +10,10 @@ public class Main {
         Product mandarin = new Product("мандарин", 47.5, 0.89);
         Product mandarin1 = new Product("мандарин", 47.5, 0.89);
 
-        Set<Product> products = new HashSet<>();
-        addProduct(banana, products);
-        addProduct(grapefruit, products);
-        addProduct(mandarin, products);
+        Map<Product, Integer> products = new HashMap();
+        addProduct(banana, products, 2);
+        addProduct(grapefruit, products, 2);
+        addProduct(mandarin, products, 4);
 
 
         System.out.println(products);
@@ -27,9 +29,9 @@ public class Main {
         Product ham = new Product("ветчина", 123.45, 0.23);
 
 
-        recipe1.addProductInRecipe(egg);
-        recipe1.addProductInRecipe(solt);
-        recipe1.addProductInRecipe(ham);
+        recipe1.addProductInRecipe(egg, recipe1.getProducts(), 5);
+        recipe1.addProductInRecipe(solt, recipe1.getProducts(), 4);
+        recipe1.addProductInRecipe(ham, recipe1.getProducts(), 8);
 
         System.out.println(recipe1);
 
@@ -39,15 +41,15 @@ public class Main {
         Product yogurt = new Product("йогурт", 54.26, 0.17);
 
 
-        recipe2.addProductInRecipe(banana);
-        recipe2.addProductInRecipe(grapefruit);
-        recipe2.addProductInRecipe(mandarin);
-        recipe2.addProductInRecipe(yogurt);
+        recipe2.addProductInRecipe(banana, recipe2.getProducts(), 6);
+        recipe2.addProductInRecipe(grapefruit, recipe2.getProducts(), 1);
+        recipe2.addProductInRecipe(mandarin, recipe2.getProducts(), 3);
+        recipe2.addProductInRecipe(yogurt, recipe2.getProducts(), 8);
 
-        recipe3.addProductInRecipe(banana);
-        recipe3.addProductInRecipe(grapefruit);
-        recipe3.addProductInRecipe(mandarin);
-        recipe3.addProductInRecipe(yogurt);
+        recipe3.addProductInRecipe(banana, recipe3.getProducts(), 2);
+        recipe3.addProductInRecipe(grapefruit, recipe3.getProducts(), 3);
+        recipe3.addProductInRecipe(mandarin, recipe3.getProducts(), 9);
+        recipe3.addProductInRecipe(yogurt, recipe3.getProducts(), 7);
 
         System.out.println(recipe2);
 
@@ -59,15 +61,18 @@ public class Main {
 
     }
 
-    private static void addProduct(Product product, Set<Product> products) {
-        if (products.contains(product)) {
+    private static void addProduct(Product product, Map<Product, Integer> products, Integer quantity) {
+        if (products.containsKey(product)) {
             throw new RuntimeException("Такой продукт уже имеется в списке!");
         } else {
-            products.add(product);
+            products.put(product, quantity);
+        }
+        if (quantity == null || quantity < 1) {
+            throw new RuntimeException("Установите количество!");
         }
     }
 
-    private static void removeProduct(Product product, Set<Product> products) {
+    private static void removeProduct(Product product, Map<Product, Integer> products) {
         products.remove(product);
     }
 }

@@ -1,19 +1,17 @@
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Recipe {
     private final String name;
-    private final Set<Product> products;
+    private final Map<Product, Integer> products;
     private double totalCost;
 
-    public Recipe(String name, Set<Product> products, double totalCost) {
+    public Recipe(String name, Map<Product, Integer> products, double totalCost) {
         if (name == null || name.isEmpty()) {
             throw new RuntimeException("Введите название!");
         } else {
             this.name = name;
         }
-        this.products = new HashSet<>();
+        this.products = new HashMap<>();
         this.totalCost = 0;
     }
 
@@ -21,7 +19,7 @@ public class Recipe {
         return name;
     }
 
-    public Set<Product> getProducts() {
+    public Map<Product, Integer> getProducts() {
         return products;
     }
 
@@ -29,12 +27,15 @@ public class Recipe {
         return totalCost;
     }
 
-    public void addProductInRecipe(Product product) {
-        if (products.contains(product)) {
+    public void addProductInRecipe(Product product, Map<Product, Integer> products, Integer quantity) {
+        if (products.containsKey(product)) {
             throw new IllegalArgumentException("Такой продукт уже содержится в рецепте!");
         }
-        products.add(product);
-        totalCost += product.getPrice();
+        products.put(product, quantity);
+        if (quantity == null || quantity < 1) {
+            throw new RuntimeException("Установите количество!");
+        }
+        totalCost = totalCost + (product.getPrice() * quantity);
     }
 
     @Override

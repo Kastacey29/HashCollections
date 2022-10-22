@@ -4,6 +4,7 @@ public class Product {
     private final String name;
     private double price;
     private double weight;
+
     private boolean isBought;
 
     public Product(String name, double price, double weight) {
